@@ -406,7 +406,7 @@ Flag: `42069`
 
 We can follow the TCP stream from the packet found at Task 6, using the shortcut `Ctrl+Alt+Shift+T` with the packet selected.
 
-![Flag: `nt authority/system`](images/task-8.png)
+![Flag: `nt authority/system`](images/task-7.png)
 
 ## Task 8: A Present From The Hacker (15 points)
 
