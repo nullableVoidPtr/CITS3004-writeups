@@ -256,7 +256,7 @@ b'CITS3004{c1pH3rT3xT_pL41nT3xT_4tt4CK_1nC0mInG!!1!!}'
 > 
 > **Can you still see the hidden message within the image?**
 
-ECB can reveal repeating patterns in raw data. As PCM is just raw RGB values, we can just view it as raw image data in GIMP with the speficified dimensions.
+ECB can reveal repeating patterns in raw data. As PPM is just raw RGB values, we can just view it as raw image data in GIMP with the speficified dimensions.
 ![Flag: `CTF{ECB IS REALLY BAD TO ENCRYPT IMAGES}`](images/ecbrypted.png)
 ## Rocking With The Cats (15 points)
 
