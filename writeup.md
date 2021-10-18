@@ -288,7 +288,7 @@ The provided source code has the following line:
 `srand(time(NULL))`
 
 Hence, we are to fetch the time of the target machine, then retrieve the generated random numbers.
-Due to the potential of slight offsync, we have to search for the range around our machine to see if the seed would be corret.
+Due to the potential of slight offsync, we have to search for the range around our machine to see if the seed would be correct.
 We can do this by incorrectly guessing the first input and retrieving the output to compare to.
 The following Python script uses the local libc library as Python's random module would not produce the same output.
 ```py
